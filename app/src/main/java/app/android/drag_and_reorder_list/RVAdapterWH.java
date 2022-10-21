@@ -1,64 +1,48 @@
 package app.android.drag_and_reorder_list;
 
 import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> implements MoveItemCallback.ItemTouchHelperContract {
+public class RVAdapterWH extends RecyclerView.Adapter<RVAdapterWH.MyViewHolder> implements MoveItemCallback1.ItemTouchHelperContract {
 
     private ArrayList<String> data;
-
-    private final DragListener mAdapter;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitle;
         View row;
-        ImageView imageView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             row = itemView;
             mTitle = itemView.findViewById(R.id.title);
-            imageView = itemView.findViewById(R.id.pan);
         }
     }
 
-    public RVAdapter(ArrayList<String> data, DragListener Adapter) {
-        mAdapter = Adapter;
+    public RVAdapterWH(ArrayList<String> data) {
         this.data = data;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_row, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.mTitle.setText(data.get(position));
-
-        holder.imageView.setOnTouchListener((v, event) -> {
-            if (event.getAction() ==
-                    MotionEvent.ACTION_DOWN) {
-                mAdapter.requestDrag(holder);
-            }
-            return false;
-        });
     }
 
 
@@ -83,12 +67,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> impl
     }
 
     @Override
-    public void onRowSelected(RVAdapter.MyViewHolder myViewHolder) {
-        myViewHolder.row.setBackgroundColor(Color.GRAY);
+    public void onRowSelected(MyViewHolder myViewHolder) {
+        myViewHolder.row.setBackgroundColor(Color.rgb(255,148,148));
     }
 
     @Override
-    public void onRowClear(RVAdapter.MyViewHolder myViewHolder) {
-        myViewHolder.row.setBackgroundColor(Color.WHITE);
+    public void onRowClear(MyViewHolder myViewHolder) {
+        myViewHolder.row.setBackgroundColor(Color.rgb(255,178,178));
     }
 }

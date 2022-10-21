@@ -25,7 +25,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textColor="FF9494"
             android:textAppearance="@style/TextAppearance.Compat.Notification.Title" />
 
 
@@ -39,5 +38,4 @@
             android:src="@drawable/ic_pan" />
 
     </RelativeLayout>
-
 </androidx.cardview.widget.CardView>

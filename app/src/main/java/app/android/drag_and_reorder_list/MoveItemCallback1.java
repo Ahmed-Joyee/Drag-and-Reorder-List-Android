@@ -1,21 +1,20 @@
 package app.android.drag_and_reorder_list;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import androidx.recyclerview.widget.ItemTouchHelper;
-
-public class MoveItemCallback extends ItemTouchHelper.Callback {
+public class MoveItemCallback1 extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperContract Adapter;
 
-    public MoveItemCallback(ItemTouchHelperContract adapter) {
+    public MoveItemCallback1(ItemTouchHelperContract adapter) {
         Adapter = adapter;
     }
 
     @Override
     public boolean isLongPressDragEnabled() {
-        return false;
+        return true;
     }
 
     @Override
@@ -49,9 +48,9 @@ public class MoveItemCallback extends ItemTouchHelper.Callback {
 
 
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            if (viewHolder instanceof RVAdapterH.MyViewHolder) {
-                RVAdapterH.MyViewHolder myViewHolder=
-                        (RVAdapterH.MyViewHolder) viewHolder;
+            if (viewHolder instanceof RVAdapterWH.MyViewHolder) {
+                RVAdapterWH.MyViewHolder myViewHolder=
+                        (RVAdapterWH.MyViewHolder) viewHolder;
                 Adapter.onRowSelected(myViewHolder);
             }
 
@@ -64,9 +63,9 @@ public class MoveItemCallback extends ItemTouchHelper.Callback {
                           @NonNull RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
 
-        if (viewHolder instanceof RVAdapterH.MyViewHolder) {
-            RVAdapterH.MyViewHolder myViewHolder=
-                    (RVAdapterH.MyViewHolder) viewHolder;
+        if (viewHolder instanceof RVAdapterWH.MyViewHolder) {
+            RVAdapterWH.MyViewHolder myViewHolder=
+                    (RVAdapterWH.MyViewHolder) viewHolder;
             Adapter.onRowClear(myViewHolder);
         }
     }
@@ -74,8 +73,8 @@ public class MoveItemCallback extends ItemTouchHelper.Callback {
     public interface ItemTouchHelperContract {
 
         void onRowMoved(int fromPosition, int toPosition);
-        void onRowSelected(RVAdapterH.MyViewHolder myViewHolder);
-        void onRowClear(RVAdapterH.MyViewHolder myViewHolder);
+        void onRowSelected(RVAdapterWH.MyViewHolder myViewHolder);
+        void onRowClear(RVAdapterWH.MyViewHolder myViewHolder);
 
     }
 

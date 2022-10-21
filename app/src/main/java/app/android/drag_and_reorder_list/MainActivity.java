@@ -1,54 +1,39 @@
 package app.android.drag_and_reorder_list;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.content.Intent;
 import android.os.Bundle;
-import java.util.ArrayList;
+import android.view.WindowManager;
+import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements DragListener {
+public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    RVAdapter Adapter;
-    ArrayList<String> stringArrayList = new ArrayList<>();
-    ItemTouchHelper touchHelper;
+    Button button1, button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        recyclerView = findViewById(R.id.recyclerView);
-
-        populateRecyclerView();
+        goDRnoHandle();
+        goDRHandle();
     }
 
-    private void populateRecyclerView() {
-        stringArrayList.add("Red");
-        stringArrayList.add("Orange");
-        stringArrayList.add("Yellow");
-        stringArrayList.add("Blue");
-        stringArrayList.add("Green");
-        stringArrayList.add("Indigo");
-        stringArrayList.add("Violet");
-        stringArrayList.add("Pink");
-        stringArrayList.add("Black");
-        stringArrayList.add("White");
-
-        Adapter = new RVAdapter(stringArrayList,this);
-
-        ItemTouchHelper.Callback callback =
-                new MoveItemCallback(Adapter);
-        touchHelper  = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
-
-        recyclerView.setAdapter(Adapter);
+    private void goDRnoHandle() {
+        button1 = findViewById(R.id.btn1);
+        button1.setOnClickListener(view -> {
+            Intent i = new Intent(MainActivity.this, DRnoHandle.class);
+            startActivity(i);
+        });
     }
 
-    @Override
-    public void requestDrag(RecyclerView.ViewHolder viewHolder) {
-        touchHelper.startDrag(viewHolder);
+    private void goDRHandle() {
+        button2 = findViewById(R.id.btn2);
+        button2.setOnClickListener(view -> {
+            Intent i = new Intent(MainActivity.this, DRHandle.class);
+            startActivity(i);
+        });
     }
 }
